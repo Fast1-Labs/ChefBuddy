@@ -11,15 +11,15 @@ export default function Home() {
       <Text className="text-l p-2 text-center font-bold">
         Please enter the ingredients you would like to use.
       </Text>
-      <View className="m-2 flex-row items-center gap-2">
+      <View className="m-2 mt-5 items-center gap-2">
         <TextInput
           placeholder="Ingredients"
-          className="flex-1 border border-zinc-400 p-2"
+          className="w-full border border-zinc-400 p-2"
           value={input}
           onChangeText={(item) => setInput(item)}
         />
-        <Pressable>
-          <Text className=" font-bold text-blue-600">Search</Text>
+        <Pressable className=" rounded bg-blue-600">
+          <Text className=" m-3 font-bold text-white">Generate Recipes</Text>
         </Pressable>
       </View>
     </View>
