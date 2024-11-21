@@ -17,7 +17,7 @@ export default function IngredientInput({ onAdd }: { onAdd: (ingredient: string)
         className="mr-3 flex-1 border border-[#ccc] p-2"
         placeholder="Enter an ingredient"
         value={ingredient}
-        onChangeText={() => setIngredient}
+        onChangeText={setIngredient}
       />
       <Button title="Add" onPress={handleAdd} />
     </View>

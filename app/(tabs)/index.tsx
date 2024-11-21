@@ -19,7 +19,7 @@ export default function Home() {
     try {
       const suggestions = await fetchMealSuggestions(ingredients);
       router.push({
-        pathname: '/two',
+        pathname: '/results',
         params: { suggestions },
       });
     } catch (error) {
