@@ -18,12 +18,12 @@
     "axios": "^1.7.7",
     "expo": "^52.0.7",
     "expo-constants": "~17.0.3",
+    "expo-linear-gradient": "~14.0.1",
     "expo-linking": "~7.0.2",
     "expo-router": "~4.0.6",
     "expo-status-bar": "~2.0.0",
     "expo-system-ui": "~4.0.3",
     "expo-web-browser": "~14.0.1",
-    "native-base": "^3.4.28",
     "nativewind": "latest",
     "openai": "^4.73.0",
     "react": "18.3.1",
@@ -34,9 +34,8 @@
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~4.1.0",
-    "react-native-web": "~0.19.10",
     "react-native-svg": "12.1.1",
-    "expo-linear-gradient": "~14.0.1"
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
