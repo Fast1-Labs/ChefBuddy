@@ -4,10 +4,15 @@ import { Button, TextInput, View } from 'react-native';
 export default function SearchBar() {
   const [ingredients, setIngredients] = useState();
 
-  const onSearch = async () => {};
+  const onSearch = async () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <View className="m-4 flex-row rounded-xl border border-gray-300 p-2">
+    <View className="m-4 flex-row rounded-xl border border-gray-100 p-2">
       <TextInput
         value={ingredients}
         onChangeText={() => setIngredients}
