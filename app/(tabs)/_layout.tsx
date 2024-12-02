@@ -19,7 +19,7 @@ export default function TabLayout() {
         name="results"
         options={{
           title: 'Results',
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
         }}
       />
     </Tabs>
