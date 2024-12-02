@@ -1,26 +1,10 @@
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 
-import { TabBarIcon } from '../../components/TabBarIcon';
 export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: 'black',
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="results"
-        options={{
-          title: 'Results',
-          tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
-        }}
-      />
-    </Tabs>
+    <Stack screenOptions={{ headerStyle: { backgroundColor: 'orange' } }}>
+      <Stack.Screen name="index" options={{ title: 'Home' }} />
+      <Stack.Screen name="results" options={{ title: 'Favorites' }} />
+    </Stack>
   );
 }

@@ -1,7 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 
 import SearchBar from '~/components/SearchBar';
+
 export default function Home() {
   return (
     <View className="flex-1">
