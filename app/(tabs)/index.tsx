@@ -68,7 +68,9 @@ export default function Home() {
         </View>
         {loading && <ActivityIndicator size="large" color="#ffffff" className="mt-5" />}
         {recipe && (
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 200 }}>
             <Text className="p-4 text-lg text-white">{recipe}</Text>
           </ScrollView>
         )}
