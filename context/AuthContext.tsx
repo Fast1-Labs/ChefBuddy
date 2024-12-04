@@ -8,7 +8,7 @@ type AuthContextType = {
   session: Session | null;
   user: User | null;
 };
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export default function AuthContextProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
@@ -37,4 +37,10 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (context === null) {
+    throw new Error('useAuth must be used within an AuthContextProvider');
+  }
+  return context;
+};
