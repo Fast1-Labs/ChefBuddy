@@ -31,7 +31,7 @@ export default function Home() {
           },
           {
             role: 'user',
-            content: `I have the following ingredients: ${ingredients}. Can you suggest a recipe I can prepare? Include a recipe name, picture, ingredients with quantities, and step by step cooking instructions. Please also mention the preparation and cooking time.`,
+            content: `I have the following ingredients: ${ingredients}. Can you suggest a recipe I can prepare? Include a recipe name, ingredients with quantities, and step by step cooking instructions. Please also mention the preparation and cooking time.`,
           },
         ],
         max_tokens: 700,
@@ -56,9 +56,7 @@ export default function Home() {
         Alert.alert('You need to login to your account to add favorites.');
       }
 
-      const { data, error } = await supabase
-        .from('favorites')
-        .insert([{ user_id: user?.id, recipe }]);
+      const { error } = await supabase.from('favorites').insert([{ user_id: user?.id, recipe }]);
 
       if (error) {
         throw error;

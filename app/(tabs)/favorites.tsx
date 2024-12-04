@@ -2,7 +2,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { useState, useEffect } from 'react';
-import { View, Text, Alert, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Alert, ScrollView, Dimensions } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
