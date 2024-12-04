@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
 import {
@@ -14,6 +15,7 @@ import { supabase } from '~/utils/supabase';
 
 type Recipe = {
   recipe: string;
+  id: string;
 };
 export default function Favorites() {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
@@ -32,7 +34,7 @@ export default function Favorites() {
 
       const { data, error } = await supabase
         .from('favorites')
-        .select('recipe')
+        .select('id, recipe')
         .eq('user_id', user?.id);
 
       if (error) {
@@ -86,9 +88,16 @@ export default function Favorites() {
       {loading && <ActivityIndicator style={{ justifyContent: 'center', alignItems: 'center' }} />}
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
-          <Text className="pb-10 font-semibold text-white" key={index}>
-            {item}
-          </Text>
+          <View key={index}>
+            <FontAwesome
+              name="trash"
+              size={24}
+              color="white"
+              className="absolute right-2 z-10"
+              onPress={() => deleteFavorites(item.id)}
+            />
+            <Text className="pb-10 font-semibold text-white">{item}</Text>
+          </View>
         ))}
       </ScrollView>
     </LinearGradient>
