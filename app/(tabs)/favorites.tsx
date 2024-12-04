@@ -89,7 +89,7 @@ export default function Favorites() {
       )}
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
-          <View key={index}>
+          <View className="mb-2 border-b-2 border-white" key={index}>
             <FontAwesome
               name="trash"
               size={24}
