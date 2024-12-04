@@ -1,5 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import LottieView from 'lottie-react-native';
 import { useState, useEffect } from 'react';
 import { View, Text, Alert, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
 
@@ -76,7 +77,16 @@ export default function Favorites() {
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
       style={{ height: Dimensions.get('window').height, flex: 1 }}>
-      {loading && <ActivityIndicator style={{ justifyContent: 'center', alignItems: 'center' }} />}
+      {loading && (
+        <View className="flex-1 items-center justify-center">
+          <LottieView
+            source={require('../../assets/animations/loading.json')}
+            loop
+            autoPlay
+            style={{ height: 300, width: 300 }}
+          />
+        </View>
+      )}
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
           <View key={index}>

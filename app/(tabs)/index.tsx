@@ -91,10 +91,7 @@ export default function Home() {
             <LottieView
               source={require('../../assets/animations/chef.json')}
               ref={animation}
-              style={{
-                width: 200,
-                height: 200,
-              }}
+              style={{ height: 300, width: 300 }}
               loop
               autoPlay
             />
