@@ -85,7 +85,12 @@ export default function Favorites() {
               size={24}
               color="white"
               className="absolute right-2 z-10"
-              onPress={() => deleteFavorites(item.id)}
+              onPress={() =>
+                Alert.alert('Confirm Delete', 'Are you sure you want to remove this favorite?', [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Yes', onPress: () => deleteFavorites(item.id) },
+                ])
+              }
             />
             <Text className="pb-10 font-semibold text-white">{item.recipe}</Text>
           </View>
