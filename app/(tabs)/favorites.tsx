@@ -1,21 +1,13 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  Alert,
-  ActivityIndicator,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import { View, Text, Alert, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
 type Recipe = {
   recipe: string;
-  id: string;
+  id: number;
 };
 export default function Favorites() {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
@@ -40,8 +32,7 @@ export default function Favorites() {
       if (error) {
         throw error;
       }
-
-      setFavorites(data.map((item) => item.recipe));
+      setFavorites(data);
     } catch (error) {
       console.log(error);
       Alert.alert('Failed to fetch favorites');
@@ -54,7 +45,7 @@ export default function Favorites() {
     fetchFavorites();
   }, []);
 
-  const deleteFavorites = async (recipeId: string) => {
+  const deleteFavorites = async (recipeId: number) => {
     try {
       const {
         data: { user },
@@ -96,7 +87,7 @@ export default function Favorites() {
               className="absolute right-2 z-10"
               onPress={() => deleteFavorites(item.id)}
             />
-            <Text className="pb-10 font-semibold text-white">{item}</Text>
+            <Text className="pb-10 font-semibold text-white">{item.recipe}</Text>
           </View>
         ))}
       </ScrollView>
