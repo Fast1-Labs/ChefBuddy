@@ -23,7 +23,6 @@ export default function Home() {
   const [ingredients, setIngredients] = useState<string>('');
   const [recipe, setRecipe] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const [favorites, setFavorites] = useState(false);
 
   //Add language switch between  turkish / english later
   const generateRecipes = async (ingredients: string) => {
