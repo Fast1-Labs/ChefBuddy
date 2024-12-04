@@ -6,11 +6,10 @@ import {
   Pressable,
   Alert,
   ActivityIndicator,
-  FlatList,
+  ScrollView,
   Dimensions,
 } from 'react-native';
 
-import FavoriteItem from '~/components/FavoriteItem';
 import { supabase } from '~/utils/supabase';
 
 type Recipe = {
@@ -53,14 +52,21 @@ export default function Favorites() {
     fetchFavorites();
   }, []);
 
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
-      style={{ height: Dimensions.get('window').height }}>
-      {loading && <ActivityIndicator style={{ justifyContent: 'center', alignItems: 'center' }} />}
-      <View className="flex-1 p-4">
-        <FlatList data={favorites} renderItem={({ item }) => <FavoriteItem favorite={item} />} />
-      </View>
+      style={{ height: Dimensions.get('window').height, flex: 1 }}>
+      <ScrollView className="mb-5 flex-1 p-4">
+        {favorites.map((item, index) => (
+          <Text className="pb-10 font-semibold text-white" key={index}>
+            {item}
+          </Text>
+        ))}
+      </ScrollView>
     </LinearGradient>
   );
 }
