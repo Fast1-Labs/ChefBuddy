@@ -44,7 +44,6 @@ export default function Auth() {
     });
 
     if (error) Alert.alert(error.message);
-    if (!session) Alert.alert('Please check your inbox for email verification!');
     setLoading(false);
   }
 
@@ -60,7 +59,9 @@ export default function Auth() {
       <View style={styles.container}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
+            style={{ color: 'white' }}
             label="Email"
+            placeholderTextColor="gainsboro"
             leftIcon={{ type: 'font-awesome', name: 'envelope' }}
             onChangeText={(text) => setEmail(text)}
             value={email}
@@ -71,6 +72,8 @@ export default function Auth() {
         <View style={styles.verticallySpaced}>
           <Input
             label="Password"
+            style={{ color: 'white' }}
+            placeholderTextColor="gainsboro"
             leftIcon={{ type: 'font-awesome', name: 'lock' }}
             onChangeText={(text) => setPassword(text)}
             value={password}

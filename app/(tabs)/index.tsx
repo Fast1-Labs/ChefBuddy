@@ -12,6 +12,8 @@ import {
   Text,
 } from 'react-native';
 
+import { supabase } from '~/utils/supabase';
+
 export default function Home() {
   const openai = new OpenAI({
     apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
@@ -50,6 +52,30 @@ export default function Home() {
       console.log(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const addToFavorites = async (recipe: any) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        Alert.alert('You need to login to your account to add favorites.');
+      }
+
+      const { data, error } = await supabase
+        .from('favorites')
+        .insert([{ user_id: user?.id, recipe }]);
+
+      if (error) {
+        throw error;
+      }
+
+      Alert.alert('Recipe added to favorites!');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error while adding to favorites!');
     }
   };
 
