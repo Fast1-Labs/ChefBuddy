@@ -52,14 +52,38 @@ export default function Favorites() {
     fetchFavorites();
   }, []);
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
+  const deleteFavorites = async (recipeId: string) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        Alert.alert('You need to login before removing favorites!');
+      }
+      const { error } = await supabase
+        .from('favorites')
+        .delete()
+        .eq('user_id', user?.id)
+        .eq('id', recipeId);
+
+      if (error) {
+        throw error;
+      }
+
+      Alert.alert('Recipe has removed from favorites!');
+      fetchFavorites();
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error while deleting favorite!');
+    }
+  };
 
   return (
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
       style={{ height: Dimensions.get('window').height, flex: 1 }}>
+      {loading && <ActivityIndicator style={{ justifyContent: 'center', alignItems: 'center' }} />}
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
           <Text className="pb-10 font-semibold text-white" key={index}>
