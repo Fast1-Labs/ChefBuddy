@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { OpenAI } from 'openai';
 import { useState } from 'react';
@@ -99,6 +100,13 @@ export default function Home() {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 200 }}>
+            <FontAwesome
+              name="star"
+              size={24}
+              color="white"
+              onPress={() => addToFavorites(recipe)}
+              className="absolute right-5 z-10"
+            />
             <Text className="p-4 text-lg text-white">{recipe}</Text>
           </ScrollView>
         )}
