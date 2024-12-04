@@ -1,7 +1,8 @@
 import { Button, Input } from '@rneui/themed';
-import { Redirect } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Redirect, Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, AppState } from 'react-native';
+import { Alert, StyleSheet, View, AppState, Dimensions } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
 
@@ -52,35 +53,40 @@ export default function Auth() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input
-          label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder="email@address.com"
-          autoCapitalize="none"
-        />
+    <LinearGradient
+      colors={['#833ab4', '#fd1d1d', '#fcb045']}
+      style={{ height: Dimensions.get('window').height }}>
+      <Stack.Screen options={{ title: 'Login', headerStyle: { backgroundColor: 'orange' } }} />
+      <View style={styles.container}>
+        <View style={[styles.verticallySpaced, styles.mt20]}>
+          <Input
+            label="Email"
+            leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder="email@address.com"
+            autoCapitalize="none"
+          />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <Input
+            label="Password"
+            leftIcon={{ type: 'font-awesome', name: 'lock' }}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry
+            placeholder="Password"
+            autoCapitalize="none"
+          />
+        </View>
+        <View style={[styles.verticallySpaced, styles.mt20]}>
+          <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+        </View>
       </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-        />
-      </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
-      </View>
-    </View>
+    </LinearGradient>
   );
 }
 

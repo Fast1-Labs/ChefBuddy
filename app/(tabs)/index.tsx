@@ -18,7 +18,7 @@ export default function Home() {
   });
 
   const [ingredients, setIngredients] = useState<string>('');
-  const [recipe, setRecipe] = useState<string | null>(null);
+  const [recipe, setRecipe] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState(false);
 
@@ -26,7 +26,7 @@ export default function Home() {
   const generateRecipes = async (ingredients: string) => {
     try {
       setLoading(true);
-      setRecipe(null);
+      setRecipe(undefined);
       const response = await openai.chat.completions.create({
         model: 'gpt-4',
         messages: [
