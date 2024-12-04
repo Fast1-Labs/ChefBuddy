@@ -1,17 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import LottieView from 'lottie-react-native';
 import { OpenAI } from 'openai';
-import { useState } from 'react';
-import {
-  View,
-  Dimensions,
-  TextInput,
-  Button,
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  Text,
-} from 'react-native';
+import { useRef, useState } from 'react';
+import { View, Dimensions, TextInput, Button, Alert, ScrollView, Text } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -19,7 +11,7 @@ export default function Home() {
   const openai = new OpenAI({
     apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
   });
-
+  const animation = useRef<LottieView>(null);
   const [ingredients, setIngredients] = useState<string>('');
   const [recipe, setRecipe] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
@@ -94,7 +86,20 @@ export default function Home() {
           />
           <Button title="Search" color="white" onPress={() => generateRecipes(ingredients)} />
         </View>
-        {loading && <ActivityIndicator size="large" color="#ffffff" className="mt-5" />}
+        {loading && (
+          <View className="flex-1 items-center justify-center">
+            <LottieView
+              source={require('../../assets/animations/chef.json')}
+              ref={animation}
+              style={{
+                width: 200,
+                height: 200,
+              }}
+              loop
+              autoPlay
+            />
+          </View>
+        )}
         {recipe && (
           <ScrollView
             showsVerticalScrollIndicator={false}
