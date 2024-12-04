@@ -1,6 +1,16 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
-import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  ActivityIndicator,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 
+import FavoriteItem from '~/components/FavoriteItem';
 import { supabase } from '~/utils/supabase';
 
 type Recipe = {
@@ -43,9 +53,14 @@ export default function Favorites() {
     fetchFavorites();
   }, []);
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
-
-  return <View className="flex-1 p-4" />;
+  return (
+    <LinearGradient
+      colors={['#833ab4', '#fd1d1d', '#fcb045']}
+      style={{ height: Dimensions.get('window').height }}>
+      {loading && <ActivityIndicator style={{ justifyContent: 'center', alignItems: 'center' }} />}
+      <View className="flex-1 p-4">
+        <FlatList data={favorites} renderItem={({ item }) => <FavoriteItem favorite={item} />} />
+      </View>
+    </LinearGradient>
+  );
 }
