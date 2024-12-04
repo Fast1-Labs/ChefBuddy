@@ -1,8 +1,11 @@
 import { Button, Input } from '@rneui/themed';
+import { Redirect } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, AppState } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
+
+import { useAuth } from '~/context/AuthContext';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -13,6 +16,7 @@ AppState.addEventListener('change', (state) => {
 });
 
 export default function Auth() {
+  const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,6 +45,10 @@ export default function Auth() {
     if (error) Alert.alert(error.message);
     if (!session) Alert.alert('Please check your inbox for email verification!');
     setLoading(false);
+  }
+
+  if (user) {
+    return <Redirect href="/(tabs)" />;
   }
 
   return (
