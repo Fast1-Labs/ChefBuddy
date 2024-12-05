@@ -31,7 +31,7 @@ export default function Home() {
           },
           {
             role: 'user',
-            content: `I have the following ingredients: ${ingredients}. Can you suggest a recipe I can prepare? Include a recipe name, ingredients with quantities, and step by step cooking instructions. Please also mention the preparation and cooking time.`,
+            content: `I have the following ingredients: ${ingredients}. Please suggest a recipe in the same language as the ingredients I provided. Include the recipe name, a detailed list of ingredients with quantities, step-by-step cooking instructions, and the total preparation and cooking time.`,
           },
         ],
         max_tokens: 700,
