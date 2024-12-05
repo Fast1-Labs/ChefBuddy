@@ -73,6 +73,8 @@ export default function Favorites() {
     }
   };
 
+  const copyToClipboard = (recipe: Recipe) => {};
+
   return (
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
