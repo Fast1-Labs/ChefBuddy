@@ -1,4 +1,5 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { useState, useEffect } from 'react';
@@ -73,7 +74,11 @@ export default function Favorites() {
     }
   };
 
-  const copyToClipboard = (recipe: Recipe) => {};
+  const copyToClipboard = async (recipe: any) => {
+    await Clipboard.setStringAsync(recipe.recipe);
+
+    Alert.alert('Copied to clipboard');
+  };
 
   return (
     <LinearGradient
@@ -92,18 +97,27 @@ export default function Favorites() {
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
           <View className="mb-2 border-b-2 border-white" key={index}>
-            <FontAwesome
-              name="trash"
-              size={24}
-              color="white"
-              className="absolute right-2 z-10"
-              onPress={() =>
-                Alert.alert('Confirm Delete', 'Are you sure you want to remove this favorite?', [
-                  { text: 'Cancel', style: 'cancel' },
-                  { text: 'Yes', onPress: () => deleteFavorites(item.id) },
-                ])
-              }
-            />
+            <View className="absolute right-2 flex-row gap-4">
+              <Ionicons
+                name="copy"
+                size={24}
+                color="white"
+                onPress={() => copyToClipboard(item.recipe)}
+                className="z-10"
+              />
+              <FontAwesome
+                name="trash"
+                size={24}
+                color="white"
+                className="z-10"
+                onPress={() =>
+                  Alert.alert('Confirm Delete', 'Are you sure you want to remove this favorite?', [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'Yes', onPress: () => deleteFavorites(item.id) },
+                  ])
+                }
+              />
+            </View>
             <Text className="pb-10 font-semibold text-white">{item.recipe}</Text>
           </View>
         ))}
