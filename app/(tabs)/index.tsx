@@ -31,7 +31,8 @@ export default function Home() {
           },
           {
             role: 'user',
-            content: `I have the following ingredients: ${ingredients}. Please suggest a recipe in the same language as the ingredients I provided. Include the recipe name, a detailed list of ingredients with quantities, step-by-step cooking instructions, and the total preparation and cooking time.`,
+            content: `I have the following ingredients: ${ingredients}. Please suggest a recipe I can prepare using these ingredients. The recipe should be written in the same language as the ingredients provided (e.g., if I write in Turkish, respond in Turkish).
+            Include the following: Recipe Name, A detailed list of ingredients with quantities, Step-by-step cooking instructions, Total preparation and cooking time, Any possible substitutions for missing ingredients. Format the response neatly with clear sections for readability.`,
           },
         ],
         max_tokens: 700,
