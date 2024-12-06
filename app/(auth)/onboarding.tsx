@@ -12,6 +12,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 import { onBoardingData, onBoardingDataType } from '~/constants/onboard';
 
@@ -63,13 +64,38 @@ export default function OnBoarding() {
               {item.image}
               <View className="gap-6 p-4">
                 <Text className=" text-center text-3xl font-bold text-white">{item.title}</Text>
-                <Text className=" text-center text-lg font-semibold text-gray-100">
+                <Text className=" text-center text-xl font-semibold text-gray-200">
                   {item.subtitle}
                 </Text>
               </View>
             </View>
           ))}
         </ScrollView>
+        <View
+          style={{
+            bottom: verticalScale(70),
+            position: 'absolute',
+            gap: scale(8),
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}>
+          {onBoardingData.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                {
+                  width: scale(8),
+                  height: scale(8),
+                  borderRadius: 1000,
+                  backgroundColor: '#fff',
+                  marginHorizontal: scale(2),
+                },
+                { opacity: activeIndex === index ? 1 : 0.3 },
+              ]}
+            />
+          ))}
+        </View>
       </LinearGradient>
     </View>
   );
