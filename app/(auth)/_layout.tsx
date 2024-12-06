@@ -13,7 +13,11 @@ export default function LoginLayout() {
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen
         name="login"
-        options={{ title: 'Login', headerStyle: { backgroundColor: 'orange' } }}
+        options={{
+          title: 'Login',
+          headerStyle: { backgroundColor: 'orange' },
+          headerBackVisible: false,
+        }}
       />
     </Stack>
   );
