@@ -1,10 +1,9 @@
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import * as Clipboard from 'expo-clipboard';
+import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, Alert, ScrollView, Dimensions, ToastAndroid, Platform } from 'react-native';
+import { useState, useCallback } from 'react';
+import { View, Text, Alert, ScrollView, Dimensions } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -75,26 +74,12 @@ export default function Favorites() {
 
   useFocusEffect(
     useCallback(() => {
-      // Do something when the screen is focused
       fetchFavorites();
       return () => {
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
         console.log('Unfocused');
       };
     }, [])
   );
-
-  // Go back for android devices and copy functions basic
-  const copyToClipboard = async (recipe: any) => {
-    await Clipboard.setStringAsync(recipe.recipe);
-
-    if (Platform.OS === 'android') {
-      ToastAndroid.show('Recipe copied to clipboard!', ToastAndroid.SHORT);
-    } else {
-      Alert.alert('Success', 'Recipe copied to clipboard!');
-    }
-  };
 
   return (
     <LinearGradient
@@ -114,12 +99,6 @@ export default function Favorites() {
         {favorites.map((item, index) => (
           <View className="mb-2 border-b-2 border-white" key={index}>
             <View className="absolute right-2 z-10 flex-row gap-4">
-              {/*  <Ionicons
-                name="copy"
-                size={24}
-                color="white"
-                onPress={() => copyToClipboard(item.recipe)}
-              />*/}
               <FontAwesome
                 name="trash"
                 size={24}
