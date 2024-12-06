@@ -1,12 +1,9 @@
 import { Button, Input } from '@rneui/themed';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Redirect, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, AppState, Dimensions } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
-
-import { useAuth } from '~/context/AuthContext';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -17,7 +14,6 @@ AppState.addEventListener('change', (state) => {
 });
 
 export default function Auth() {
-  const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -47,15 +43,10 @@ export default function Auth() {
     setLoading(false);
   }
 
-  if (user) {
-    return <Redirect href="/(tabs)" />;
-  }
-
   return (
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
       style={{ height: Dimensions.get('window').height }}>
-      <Stack.Screen options={{ title: 'Login', headerStyle: { backgroundColor: 'orange' } }} />
       <View style={styles.container}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
