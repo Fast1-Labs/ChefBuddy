@@ -1,9 +1,10 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { useState, useEffect } from 'react';
-import { View, Text, Alert, ScrollView, Dimensions } from 'react-native';
+import { useState, useEffect, useCallback } from 'react';
+import { View, Text, Alert, ScrollView, Dimensions, ToastAndroid, Platform } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -24,6 +25,7 @@ export default function Favorites() {
       if (!user) {
         setFavorites([]);
         setLoading(false);
+        return;
       }
 
       const { data, error } = await supabase
@@ -43,10 +45,6 @@ export default function Favorites() {
     }
   };
 
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
-
   const deleteFavorites = async (recipeId: number) => {
     try {
       const {
@@ -55,6 +53,7 @@ export default function Favorites() {
 
       if (!user) {
         Alert.alert('You need to login before removing favorites!');
+        return;
       }
       const { error } = await supabase
         .from('favorites')
@@ -74,10 +73,27 @@ export default function Favorites() {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      // Do something when the screen is focused
+      fetchFavorites();
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+        console.log('Unfocused');
+      };
+    }, [])
+  );
+
+  // Go back for android devices and copy functions basic
   const copyToClipboard = async (recipe: any) => {
     await Clipboard.setStringAsync(recipe.recipe);
 
-    Alert.alert('Copied to clipboard');
+    if (Platform.OS === 'android') {
+      ToastAndroid.show('Recipe copied to clipboard!', ToastAndroid.SHORT);
+    } else {
+      Alert.alert('Success', 'Recipe copied to clipboard!');
+    }
   };
 
   return (
@@ -97,19 +113,17 @@ export default function Favorites() {
       <ScrollView className="mb-5 flex-1 p-4">
         {favorites.map((item, index) => (
           <View className="mb-2 border-b-2 border-white" key={index}>
-            <View className="absolute right-2 flex-row gap-4">
-              <Ionicons
+            <View className="absolute right-2 z-10 flex-row gap-4">
+              {/*  <Ionicons
                 name="copy"
                 size={24}
                 color="white"
                 onPress={() => copyToClipboard(item.recipe)}
-                className="z-10"
-              />
+              />*/}
               <FontAwesome
                 name="trash"
                 size={24}
                 color="white"
-                className="z-10"
                 onPress={() =>
                   Alert.alert('Confirm Delete', 'Are you sure you want to remove this favorite?', [
                     { text: 'Cancel', style: 'cancel' },
@@ -118,7 +132,7 @@ export default function Favorites() {
                 }
               />
             </View>
-            <Text className="pb-10 font-semibold text-white">{item.recipe}</Text>
+            <Text className="pb-10 pt-8 font-semibold text-white">{item.recipe}</Text>
           </View>
         ))}
       </ScrollView>
