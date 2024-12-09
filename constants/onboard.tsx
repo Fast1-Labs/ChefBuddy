@@ -27,7 +27,7 @@ export const onBoardingData: onBoardingDataType[] = [
   {
     id: 3,
     title: 'Cook & Enjoy!',
-    subtitle: 'Follow easy step-by-step instructions and enjoy meals made just for you.',
+    subtitle: 'Follow easy step-by-step instructions by AI and enjoy meals made just for you.',
     image: <Image source={Onboarding3} style={{ width: 200, height: 200 }} />,
   },
 ];

@@ -3,7 +3,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { OpenAI } from 'openai';
 import { useRef, useState } from 'react';
-import { View, Dimensions, TextInput, Button, Alert, ScrollView, Text } from 'react-native';
+import {
+  View,
+  Dimensions,
+  TextInput,
+  Button,
+  Alert,
+  ScrollView,
+  Text,
+  Pressable,
+} from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -83,7 +92,9 @@ export default function Home() {
             className="m-2 flex-1 text-white"
             placeholderTextColor="gainsboro"
           />
-          <Button title="Search" color="white" onPress={() => generateRecipes(ingredients)} />
+          <Pressable className="justify-center" onPress={() => generateRecipes(ingredients)}>
+            <Text className="text-lg text-white">Search</Text>
+          </Pressable>
         </View>
         {loading && (
           <View className="flex-1 items-center justify-center">
