@@ -96,7 +96,8 @@ export default function Home() {
             />
           </View>
         )}
-        {recipe && (
+
+        {recipe ? (
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 200 }}>
@@ -109,6 +110,19 @@ export default function Home() {
             />
             <Text className="p-4 text-lg text-white">{recipe}</Text>
           </ScrollView>
+        ) : (
+          <View className="flex-1 items-center p-6">
+            <LottieView
+              loop
+              autoPlay
+              ref={animation}
+              source={require('../../assets/animations/recipe.json')}
+              style={{ width: 400, height: 400 }}
+            />
+            <Text className="text-center text-2xl font-semibold text-white">
+              Let's start with your ingredients for the best recipe!
+            </Text>
+          </View>
         )}
       </LinearGradient>
     </View>
