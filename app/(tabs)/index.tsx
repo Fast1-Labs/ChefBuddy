@@ -7,11 +7,11 @@ import {
   View,
   Dimensions,
   TextInput,
-  Button,
   Alert,
   ScrollView,
   Text,
   Pressable,
+  Keyboard,
 } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
@@ -25,7 +25,6 @@ export default function Home() {
   const [recipe, setRecipe] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
-  //Add language switch between  turkish / english later
   const generateRecipes = async (ingredients: string) => {
     try {
       setLoading(true);
@@ -92,7 +91,12 @@ export default function Home() {
             className="m-2 flex-1 text-white"
             placeholderTextColor="gainsboro"
           />
-          <Pressable className="justify-center" onPress={() => generateRecipes(ingredients)}>
+          <Pressable
+            className="justify-center"
+            onPress={() => {
+              generateRecipes(ingredients);
+              Keyboard.dismiss();
+            }}>
             <Text className="text-lg text-white">Search</Text>
           </Pressable>
         </View>
