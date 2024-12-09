@@ -133,9 +133,9 @@ export default function Home() {
                 autoPlay
                 ref={animation}
                 source={require('../../assets/animations/recipe.json')}
-                style={{ width: 400, height: 400 }}
+                style={{ width: 300, height: 300 }}
               />
-              <Text className="text-center text-2xl font-semibold text-white">
+              <Text className="text-center text-xl text-white">
                 Let's start with your ingredients for the best recipe!
               </Text>
             </View>
