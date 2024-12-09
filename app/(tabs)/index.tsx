@@ -13,6 +13,7 @@ import {
   Pressable,
   Keyboard,
 } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 import { supabase } from '~/utils/supabase';
 
@@ -105,7 +106,7 @@ export default function Home() {
             <LottieView
               source={require('../../assets/animations/chef.json')}
               ref={animation}
-              style={{ height: 300, width: 300 }}
+              style={{ height: scale(300), width: scale(300) }}
               loop
               autoPlay
             />
@@ -115,7 +116,7 @@ export default function Home() {
         {recipe ? (
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 200 }}>
+            contentContainerStyle={{ paddingBottom: verticalScale(200) }}>
             <FontAwesome
               name="star"
               size={24}
@@ -133,7 +134,7 @@ export default function Home() {
                 autoPlay
                 ref={animation}
                 source={require('../../assets/animations/recipe.json')}
-                style={{ width: 300, height: 300 }}
+                style={{ width: scale(300), height: scale(300) }}
               />
               <Text className="text-center text-xl text-white">
                 Let's start with your ingredients for the best recipe!
