@@ -2,7 +2,6 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Redirect, Tabs } from 'expo-router';
 
 import { useAuth } from '~/context/AuthContext';
-import { supabase } from '~/utils/supabase';
 
 export default function TabLayout() {
   const { user } = useAuth();
@@ -25,14 +24,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="chef-hat" color={color} size={25} />
           ),
-          headerRight: () => (
-            <FontAwesome
-              name="sign-out"
-              size={24}
-              className="pr-2"
-              onPress={() => supabase.auth.signOut()}
-            />
-          ),
         }}
       />
       <Tabs.Screen
@@ -40,6 +31,13 @@ export default function TabLayout() {
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="star" color={color} size={25} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <FontAwesome name="user" size={25} color={color} />,
         }}
       />
     </Tabs>
