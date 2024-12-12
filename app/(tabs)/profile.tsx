@@ -1,13 +1,16 @@
-import { Button, Input } from '@rneui/themed';
 import { Session } from '@supabase/supabase-js';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { View, Alert, Dimensions, Button } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
+
+import FormInput from '~/components/FormInput';
 
 export default function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
@@ -21,7 +24,7 @@ export default function Account({ session }: { session: Session }) {
 
       const { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, phone`)
+        .select(`username, phone,email`)
         .eq('id', session?.user.id)
         .single();
       if (error && status !== 406) {
@@ -31,6 +34,7 @@ export default function Account({ session }: { session: Session }) {
       if (data) {
         setUsername(data.username);
         setPhone(data.phone);
+        setEmail(data.email);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -41,7 +45,15 @@ export default function Account({ session }: { session: Session }) {
     }
   }
 
-  async function updateProfile({ username, phone }: { username: string; phone: string }) {
+  async function updateProfile({
+    username,
+    phone,
+    email,
+  }: {
+    username: string;
+    phone: string;
+    email: string;
+  }) {
     try {
       setLoading(true);
       if (!session?.user) throw new Error('No user on the session!');
@@ -50,6 +62,7 @@ export default function Account({ session }: { session: Session }) {
         id: session?.user.id,
         username,
         phone,
+        email,
         updated_at: new Date(),
       };
 
@@ -68,43 +81,17 @@ export default function Account({ session }: { session: Session }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input label="Email" value={session?.user?.email} disabled />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Input label="Username" value={username || ''} onChangeText={(text) => setUsername(text)} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Input label="Phone" value={phone || ''} onChangeText={(text) => setPhone(text)} />
-      </View>
-
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+    <View className="flex-1">
+      <LinearGradient
+        colors={['#833ab4', '#fd1d1d', '#fcb045']}
+        style={{ height: Dimensions.get('window').height, flex: 1 }}>
+        <FormInput title="Email" input={email} onInputChange={() => setEmail} />
         <Button
-          title={loading ? 'Loading ...' : 'Update'}
-          onPress={() => updateProfile({ username, phone })}
+          title="Update Profile"
+          onPress={() => updateProfile({ username, phone, email })}
           disabled={loading}
         />
-      </View>
-
-      <View style={styles.verticallySpaced}>
-        <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
-      </View>
+      </LinearGradient>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 40,
-    padding: 12,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
-  },
-  mt20: {
-    marginTop: 20,
-  },
-});
