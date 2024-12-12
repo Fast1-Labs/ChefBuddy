@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
-import { View, Alert, Dimensions, Button } from 'react-native';
+import { View, Alert, Dimensions, Text, Pressable, Button } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
 
@@ -85,12 +85,17 @@ export default function Account({ session }: { session: Session }) {
       <LinearGradient
         colors={['#833ab4', '#fd1d1d', '#fcb045']}
         style={{ height: Dimensions.get('window').height, flex: 1 }}>
-        <FormInput title="Email" input={email} onInputChange={() => setEmail} />
-        <Button
-          title="Update Profile"
-          onPress={() => updateProfile({ username, phone, email })}
-          disabled={loading}
-        />
+        <View className="flex-1">
+          <FormInput title="Email" input={email} onInputChange={() => setEmail} />
+          <Button
+            title="Update Profile"
+            onPress={() => updateProfile({ username, phone, email })}
+            disabled={loading}
+          />
+        </View>
+        <Pressable className="mb-auto items-center pb-5" onPress={() => supabase.auth.signOut()}>
+          <Text className="font-bold text-black">Log Out</Text>
+        </Pressable>
       </LinearGradient>
     </View>
   );
