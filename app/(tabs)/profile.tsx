@@ -24,7 +24,7 @@ export default function Account({ session }: { session: Session }) {
 
       const { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, phone,email`)
+        .select(`username, phone, email`)
         .eq('id', session?.user.id)
         .single();
       if (error && status !== 406) {
@@ -85,8 +85,25 @@ export default function Account({ session }: { session: Session }) {
       <LinearGradient
         colors={['#833ab4', '#fd1d1d', '#fcb045']}
         style={{ height: Dimensions.get('window').height, flex: 1 }}>
-        <View className="flex-1">
-          <FormInput title="Email" input={email} onInputChange={() => setEmail} />
+        <View className="flex-1 pt-10">
+          <FormInput
+            placeholder="Email"
+            title="Email"
+            input={email}
+            onInputChange={() => setEmail}
+          />
+          <FormInput
+            placeholder="Username"
+            title="Username"
+            input={username}
+            onInputChange={() => setUsername}
+          />
+          <FormInput
+            placeholder="Phone"
+            title="Phone"
+            input={phone}
+            onInputChange={() => setPhone}
+          />
           <Button
             title="Update Profile"
             onPress={() => updateProfile({ username, phone, email })}
