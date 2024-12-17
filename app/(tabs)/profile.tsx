@@ -23,8 +23,8 @@ export default function Account({ session }: { session: Session }) {
       if (!session?.user) throw new Error('No user on the session!');
 
       const { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, phone, email`)
+        .from('auth')
+        .select('*')
         .eq('id', session?.user.id)
         .single();
       if (error && status !== 406) {
@@ -66,7 +66,7 @@ export default function Account({ session }: { session: Session }) {
         updated_at: new Date(),
       };
 
-      const { error } = await supabase.from('profiles').upsert(updates);
+      const { error } = await supabase.from('auth').upsert(updates);
 
       if (error) {
         throw error;
@@ -110,8 +110,10 @@ export default function Account({ session }: { session: Session }) {
             disabled={loading}
           />
         </View>
-        <Pressable className="mb-auto items-center pb-5" onPress={() => supabase.auth.signOut()}>
-          <Text className="font-bold text-black">Log Out</Text>
+        <Pressable
+          className="mb-auto items-center bg-red-500 pb-5"
+          onPress={() => supabase.auth.signOut()}>
+          <Text className="font-bold text-white">Log Out</Text>
         </Pressable>
       </LinearGradient>
     </View>

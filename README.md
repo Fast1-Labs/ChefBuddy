@@ -45,7 +45,11 @@ Your AI-powered cooking assistant, designed to make your time in the kitchen mor
 
 ## Screenshots
 
-*(Will be added later...)*  
+<img width="470" alt="Screenshot 2024-12-17 at 18 07 53" src="https://github.com/user-attachments/assets/49a9f8bd-eaad-4720-ab81-c20c1a178bcb" />
+<img width="470" alt="Screenshot 2024-12-17 at 18 08 06" src="https://github.com/user-attachments/assets/59cc44ac-8d13-49e3-90c3-1a2f2f4c17c0" />
+<img width="470" alt="Screenshot 2024-12-17 at 18 09 07" src="https://github.com/user-attachments/assets/eeb745a8-ee48-4c12-9e5a-ad9391d6fe51" />
+<img width="470" alt="Screenshot 2024-12-17 at 18 09 16" src="https://github.com/user-attachments/assets/0fce9564-0e15-480d-a193-28800e64a90f" />
+
 
 ---
 
