@@ -3,7 +3,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useState, useCallback } from 'react';
-import { View, Text, Alert, ScrollView, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  Alert,
+  ScrollView,
+  Dimensions,
+  TextInput,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -11,9 +20,12 @@ type Recipe = {
   recipe: string;
   id: number;
 };
+
 export default function Favorites() {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [filteredFavorites, setFilteredFavorites] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchFavorites = async () => {
     try {
@@ -35,7 +47,9 @@ export default function Favorites() {
       if (error) {
         throw error;
       }
+
       setFavorites(data);
+      setFilteredFavorites(data);
     } catch (error) {
       console.log(error);
       Alert.alert('Failed to fetch favorites');
@@ -64,12 +78,20 @@ export default function Favorites() {
         throw error;
       }
 
-      Alert.alert('Recipe has removed from favorites!');
+      Alert.alert('Recipe has been removed from favorites!');
       fetchFavorites();
     } catch (error) {
       console.log(error);
       Alert.alert('Error while deleting favorite!');
     }
+  };
+
+  const filterRecipes = (query: string) => {
+    setSearchQuery(query);
+    const filtered = favorites.filter((item) =>
+      item.recipe.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredFavorites(filtered);
   };
 
   useFocusEffect(
@@ -95,26 +117,67 @@ export default function Favorites() {
           />
         </View>
       )}
-      <ScrollView className="mb-5 flex-1 p-4" showsVerticalScrollIndicator={false}>
-        {favorites.map((item, index) => (
-          <View className="mb-2 border-b-2 border-white" key={index}>
-            <View className="absolute right-2 z-10 flex-row gap-4">
-              <FontAwesome
-                name="trash"
-                size={24}
-                color="white"
-                onPress={() =>
-                  Alert.alert('Confirm Delete', 'Are you sure you want to remove this favorite?', [
-                    { text: 'Cancel', style: 'cancel' },
-                    { text: 'Yes', onPress: () => deleteFavorites(item.id) },
-                  ])
-                }
-              />
-            </View>
-            <Text className="pb-10 pt-8 font-semibold text-white">{item.recipe}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      {!loading && !favorites.length ? (
+        <View className="flex-1 items-center justify-center">
+          <LottieView
+            source={require('../../assets/animations/loading.json')}
+            loop
+            autoPlay
+            style={{ height: 300, width: 300 }}
+          />
+          <Text className="mt-4 text-lg font-semibold text-white">No Favorites Yet!</Text>
+        </View>
+      ) : (
+        <View style={{ flex: 1 }}>
+          <TextInput
+            placeholder="Search recipes..."
+            placeholderTextColor="#fff"
+            value={searchQuery}
+            onChangeText={filterRecipes}
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              padding: 10,
+              borderRadius: 8,
+              margin: 10,
+              color: 'white',
+            }}
+          />
+          <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
+            {filteredFavorites.map((item) => (
+              <View
+                key={item.id}
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: 12,
+                  marginBottom: 10,
+                  padding: 10,
+                }}>
+                <TouchableOpacity
+                  onPress={() => Alert.alert('Recipe Details', item.recipe)}
+                  style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ flex: 1, color: 'white', fontSize: 16, fontWeight: '600' }}>
+                    {item.recipe}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    right: 10,
+                    top: 10,
+                  }}
+                  onPress={() =>
+                    Alert.alert('Confirm Delete', 'Remove this recipe from favorites?', [
+                      { text: 'Cancel', style: 'cancel' },
+                      { text: 'Yes', onPress: () => deleteFavorites(item.id) },
+                    ])
+                  }>
+                  <FontAwesome name="trash" size={24} color="white" />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      )}
     </LinearGradient>
   );
 }
