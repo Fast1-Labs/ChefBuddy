@@ -85,24 +85,24 @@ export default function Account({ session }: { session: Session }) {
       <LinearGradient
         colors={['#833ab4', '#fd1d1d', '#fcb045']}
         style={{ height: Dimensions.get('window').height, flex: 1 }}>
-        <View className="flex-1 pt-10">
+        <View className=" pt-10">
           <FormInput
-            placeholder="Email"
             title="Email"
+            onInputChange={setEmail}
             input={email}
-            onInputChange={() => setEmail}
+            placeholder="email@email.com"
           />
           <FormInput
-            placeholder="Username"
             title="Username"
+            onInputChange={setUsername}
             input={username}
-            onInputChange={() => setUsername}
+            placeholder="username"
           />
           <FormInput
-            placeholder="Phone"
             title="Phone"
+            onInputChange={setPhone}
             input={phone}
-            onInputChange={() => setPhone}
+            placeholder="123-456-7890"
           />
           <Button
             title="Update Profile"
@@ -111,9 +111,9 @@ export default function Account({ session }: { session: Session }) {
           />
         </View>
         <Pressable
-          className="mb-auto items-center bg-red-500 pb-5"
+          className="m-2 items-center rounded-full  bg-red-500 p-2"
           onPress={() => supabase.auth.signOut()}>
-          <Text className="font-bold text-white">Log Out</Text>
+          <Text className="text-center font-bold text-white">Log Out</Text>
         </Pressable>
       </LinearGradient>
     </View>

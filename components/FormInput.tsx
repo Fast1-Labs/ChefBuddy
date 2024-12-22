@@ -8,7 +8,7 @@ export default function FormInput({
 }: {
   title: string;
   input: string;
-  onInputChange: () => void;
+  onInputChange: any;
   placeholder: string;
 }) {
   return (
@@ -19,7 +19,7 @@ export default function FormInput({
         value={input}
         onChangeText={onInputChange}
         placeholder={placeholder}
-        placeholderTextColor="gainsboro"
+        placeholderTextColor="white"
       />
     </View>
   );

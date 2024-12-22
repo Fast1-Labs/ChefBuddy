@@ -95,7 +95,7 @@ export default function Favorites() {
           />
         </View>
       )}
-      <ScrollView className="mb-5 flex-1 p-4">
+      <ScrollView className="mb-5 flex-1 p-4" showsVerticalScrollIndicator={false}>
         {favorites.map((item, index) => (
           <View className="mb-2 border-b-2 border-white" key={index}>
             <View className="absolute right-2 z-10 flex-row gap-4">
