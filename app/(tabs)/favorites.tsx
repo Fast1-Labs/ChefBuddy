@@ -3,16 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useState, useCallback } from 'react';
-import {
-  View,
-  Text,
-  Alert,
-  ScrollView,
-  Dimensions,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, Alert, ScrollView, Dimensions, TextInput, Pressable } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -152,14 +143,14 @@ export default function Favorites() {
                   marginBottom: 10,
                   padding: 10,
                 }}>
-                <TouchableOpacity
+                <Pressable
                   onPress={() => Alert.alert('Recipe Details', item.recipe)}
                   style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={{ flex: 1, color: 'white', fontSize: 16, fontWeight: '600' }}>
                     {item.recipe}
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </Pressable>
+                <Pressable
                   style={{
                     position: 'absolute',
                     right: 10,
@@ -172,7 +163,7 @@ export default function Favorites() {
                     ])
                   }>
                   <FontAwesome name="trash" size={24} color="white" />
-                </TouchableOpacity>
+                </Pressable>
               </View>
             ))}
           </ScrollView>
