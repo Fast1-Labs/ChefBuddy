@@ -13,7 +13,9 @@ export default function FormInput({
 }) {
   return (
     <View className="flex-row items-center gap-2 border-b border-gray-300 p-2">
-      <Text className="pl-2 text-lg font-semibold text-white">{title} :</Text>
+      <Text style={{ width: 100 }} className="pl-2 text-lg font-semibold text-white">
+        {title} :
+      </Text>
       <TextInput
         className="pl-2"
         value={input}
