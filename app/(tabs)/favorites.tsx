@@ -97,7 +97,7 @@ export default function Favorites() {
   return (
     <LinearGradient
       colors={['#833ab4', '#fd1d1d', '#fcb045']}
-      style={{ height: Dimensions.get('window').height, flex: 1 }}>
+      style={{ height: Dimensions.get('window').height, flex: 1, paddingTop: 10 }}>
       {loading && (
         <View className="flex-1 items-center justify-center">
           <LottieView
@@ -146,7 +146,7 @@ export default function Favorites() {
                 <Pressable
                   onPress={() => Alert.alert('Recipe Details', item.recipe)}
                   style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text style={{ flex: 1, color: 'white', fontSize: 16, fontWeight: '600' }}>
+                  <Text style={{ flex: 1, color: 'white', fontSize: 14, fontWeight: '600' }}>
                     {item.recipe}
                   </Text>
                 </Pressable>
